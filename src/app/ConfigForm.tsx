@@ -30,8 +30,19 @@ export default class ConfigForm extends React.Component<
             </div>
           </label>
         </div>
-        <div>
-          <button>Save</button>
+        <div className="tc">
+          <button className="pointer" type="submit">
+            Save
+          </button>{" "}
+          <button
+            className="pointer"
+            type="button"
+            onClick={e => {
+              if (this.props.onCancel) this.props.onCancel();
+            }}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     );
@@ -52,6 +63,7 @@ export default class ConfigForm extends React.Component<
 
 interface ConfigFormProps {
   onChange: (config: ConfigFormState) => void;
+  onCancel?: () => void;
   config: ConfigFormState;
 }
 

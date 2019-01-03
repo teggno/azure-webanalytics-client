@@ -21,7 +21,7 @@ export default class PageViewsPage extends React.Component<
   render() {
     return (
       <>
-        <div className="pv3">
+        <div className="pv3 tc">
           <button className="pointer" type="button" onClick={this.refresh}>
             Refresh
           </button>

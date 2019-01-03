@@ -14,8 +14,8 @@ export default function() {
 
   return (
     <div>
-      <header className="pv2">
-        <a className="pointer link dim blue" type="button" href="#config">
+      <header className="tc">
+        <a className="pointer link dim blue f3" href="#config">
           Config
         </a>
       </header>
@@ -30,6 +30,7 @@ export default function() {
                     config = c;
                     window.location.hash = "#PageViews";
                   }}
+                  onCancel={() => (window.location.hash = "#PageViews")}
                   config={config}
                 />
               );
