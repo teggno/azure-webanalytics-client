@@ -4,7 +4,7 @@
   "description": "A web client for analysis of the data collected and provided by the azure-webanalytics application.",
   "main": "bundle.js",
   "scripts": {
-    "build": "webpack --config webpack.production.js && node copySample.js",
+    "build": "webpack --config webpack.production.js && node build/copyHeaderFiles.js",
     "watch": "webpack --watch --config webpack.development.js",
     "start": "webpack-dev-server --open --config webpack.development.js",
     "test": "karma start --single-run",
