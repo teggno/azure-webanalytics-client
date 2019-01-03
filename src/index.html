@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--
+      Set theme-color, mostly, this is to prevent the shadow that is displayed
+      below the address bar in mobile chrome otherwise. It's the same blue as
+      tachyon's "blue".
+    -->
+    <meta name="theme-color" content="#679800" />
+    <title>Adwise Analytics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="<%= css.tachyons %>" />
+  </head>
+
+  <body>
+    <div id="reactContainer"></div>
+
+    <!-- Dependencies -->
+    <script src="<%= scripts.react %>"></script>
+    <script src="<%= scripts.reactDom %>"></script>
+    <script src="<%= scripts.smoothScroll %>"></script>
+
+    <!-- Webpack will add script tag referencing bundle.js here -->
+  </body>
+</html>
