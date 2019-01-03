@@ -36,37 +36,13 @@ export default function() {
               );
             default:
               return (
-                <div>
-                  <h1 className="tc">Page views last 24 hours</h1>
-                  <PageViewsPage
-                    pageViewsUrl={pageViewsUrl(
-                      config.azureFunctionsUrl,
-                      new Date()
-                    )}
-                  />
-                </div>
+                <PageViewsPage azureFunctionsUrl={config.azureFunctionsUrl} />
               );
           }
         }}
       </HashAware>
     </div>
   );
-}
-
-function pageViewsUrl(azureFunctionsUrl: string, now: Date) {
-  return `${removeTrailingSlash(
-    azureFunctionsUrl
-  )}/PageViews?start=${encodeURIComponent(
-    addDays(now, -1).toISOString()
-  )}&end=${encodeURIComponent(now.toISOString())}`;
-}
-
-function removeTrailingSlash(s: string) {
-  return s.lastIndexOf("/") === s.length - 1 ? s.substr(0, s.length - 1) : s;
-}
-
-function addDays(date: Date, days: number) {
-  return new Date(date.valueOf() + 24 * 60 * 60 * 1000 * days);
 }
 
 function FirstVisit() {

@@ -12,7 +12,7 @@ export default function(props: { pageViews: PageView[] }) {
       </thead>
       <tbody>
         {props.pageViews.map(i => (
-          <tr className="striped--light-gray ">
+          <tr key={i.url} className="striped--light-gray ">
             <td className="pv2 ph3">{i.url}</td>
             <td className="pv2 ph3 tr">{i.pageViews}</td>
           </tr>

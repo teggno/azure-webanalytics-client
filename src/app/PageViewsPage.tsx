@@ -1,6 +1,8 @@
 import React from "react";
 import PageViewsTable from "./PageViewsTable";
 import { PageView } from "./Model";
+import { removeTrailingSlash } from "../common/Strings";
+import { addDays } from "../common/Dates";
 
 export default class PageViewsPage extends React.Component<
   PageViewPageProps,
@@ -21,6 +23,7 @@ export default class PageViewsPage extends React.Component<
   render() {
     return (
       <>
+        <h1 className="tc">Page views last 24 hours</h1>
         <div className="pv3 tc">
           <button className="pointer" type="button" onClick={this.refresh}>
             Refresh
@@ -32,7 +35,8 @@ export default class PageViewsPage extends React.Component<
   }
 
   private refresh() {
-    fetch(this.props.pageViewsUrl)
+    const url = pageViewsUrl(this.props.azureFunctionsUrl, new Date());
+    fetch(url)
       .then(res => res.json())
       .then((pageViews: PageView[]) =>
         this.setState({
@@ -42,8 +46,16 @@ export default class PageViewsPage extends React.Component<
   }
 }
 
+function pageViewsUrl(azureFunctionsUrl: string, now: Date) {
+  return `${removeTrailingSlash(
+    azureFunctionsUrl
+  )}/PageViews?startUtc=${encodeURIComponent(
+    addDays(now, -1).toISOString()
+  )}&endUtc=${encodeURIComponent(now.toISOString())}`;
+}
+
 interface PageViewPageProps {
-  pageViewsUrl: string;
+  azureFunctionsUrl: string;
 }
 
 interface PageViewsPageState {
