@@ -34,6 +34,8 @@ export default class PageViewsPage extends React.Component<
           <LoadingIndicator className="tc">Loading...</LoadingIndicator>
         ) : this.state.loadError ? (
           <div className="tc red">{this.state.loadError}</div>
+        ) : this.state.pageViews.length === 0 ? (
+          <div className="tc">There were no page views within the last 24 hours :`(</div>
         ) : (
           <PageViewsTable pageViews={this.state.pageViews} />
         )}
