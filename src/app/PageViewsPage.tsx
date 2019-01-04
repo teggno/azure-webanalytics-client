@@ -3,6 +3,7 @@ import PageViewsTable from "./PageViewsTable";
 import { PageView } from "./Model";
 import { removeTrailingSlash } from "../common/Strings";
 import { addDays } from "../common/Dates";
+import LoadingIndicator from "../common/LoadingIndicator";
 
 export default class PageViewsPage extends React.Component<
   PageViewPageProps,
@@ -11,7 +12,7 @@ export default class PageViewsPage extends React.Component<
   constructor(props: PageViewPageProps) {
     super(props);
 
-    this.state = { pageViews: [] };
+    this.state = { pageViews: [], isLoading: false, loadError: "" };
 
     this.refresh = this.refresh.bind(this);
   }
@@ -29,20 +30,37 @@ export default class PageViewsPage extends React.Component<
             Refresh
           </button>
         </div>
-        <PageViewsTable pageViews={this.state.pageViews} />
+        {this.state.isLoading ? (
+          <LoadingIndicator className="tc">Loading...</LoadingIndicator>
+        ) : this.state.loadError ? (
+          <div className="tc red">{this.state.loadError}</div>
+        ) : (
+          <PageViewsTable pageViews={this.state.pageViews} />
+        )}
       </>
     );
   }
 
   private refresh() {
     const url = pageViewsUrl(this.props.azureFunctionsUrl, new Date());
+    this.setState({ isLoading: true });
+
     fetch(url)
       .then(res => res.json())
       .then((pageViews: PageView[]) =>
         this.setState({
-          pageViews: pageViews
+          pageViews: pageViews,
+          loadError: "",
+          isLoading: false
         })
-      );
+      )
+      .catch(e => {
+        console.debug(e);
+        this.setState({
+          isLoading: false,
+          loadError: "An error happened, please try again"
+        });
+      });
   }
 }
 
@@ -60,4 +78,6 @@ interface PageViewPageProps {
 
 interface PageViewsPageState {
   pageViews: PageView[];
+  isLoading: boolean;
+  loadError: string;
 }
