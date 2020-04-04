@@ -31,11 +31,13 @@ export default class PageViewsPage extends React.Component<
           </button>
         </div>
         {this.state.isLoading ? (
-          <LoadingIndicator className="tc">Loading...</LoadingIndicator>
+          <LoadingIndicator className="tc" />
         ) : this.state.loadError ? (
           <div className="tc red">{this.state.loadError}</div>
         ) : this.state.pageViews.length === 0 ? (
-          <div className="tc">There were no page views within the last 24 hours :`(</div>
+          <div className="tc">
+            There were no page views within the last 24 hours :`(
+          </div>
         ) : (
           <PageViewsTable pageViews={this.state.pageViews} />
         )}
@@ -48,19 +50,19 @@ export default class PageViewsPage extends React.Component<
     this.setState({ isLoading: true });
 
     fetch(url)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((pageViews: PageView[]) =>
         this.setState({
           pageViews: pageViews,
           loadError: "",
-          isLoading: false
+          isLoading: false,
         })
       )
-      .catch(e => {
+      .catch((e) => {
         console.debug(e);
         this.setState({
           isLoading: false,
-          loadError: "An error happened, please try again"
+          loadError: "An error happened, please try again",
         });
       });
   }
