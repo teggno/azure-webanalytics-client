@@ -35,7 +35,7 @@
     "chai": "^4.2.0",
     "css-loader": "^3.4.2",
     "html-webpack-plugin": "^4.0.4",
-    "jsdom": "^16.2.2",
+    "jsdom": "^16.5.0",
     "karma": "^4.4.1",
     "karma-chai": "^0.1.0",
     "karma-junit-reporter": "^2.0.1",
